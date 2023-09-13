@@ -31,4 +31,13 @@ public enum MorseCharacters {
     MorseCharacters(String morseRepresentation) {
         this.morseRepresentation = morseRepresentation;
     }
+
+    public static MorseCharacters fromMorse(String morse) {
+        for (MorseCharacters character: MorseCharacters.values()) {
+            if (character.morseRepresentation.equals(morse)) {
+                return character;
+            }
+        }
+        throw new MorseLetterDoesNotExist();
+    }
 }
