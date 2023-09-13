@@ -8,10 +8,17 @@ public class MorseDecoder {
             buffer.append(" ");
             var morseLetters = word.split(" ");
             Arrays.stream(morseLetters)
-                    .map(MorseCharacters::fromMorse)
-                    .map(MorseCharacters::toString)
+                    .map(this::getRomanCharacterFromMorse)
                     .forEach(buffer::append);
         }
         return buffer.toString().trim();
+    }
+
+    private String getRomanCharacterFromMorse(String morseLetter) {
+        try {
+            return MorseCharacters.fromMorse(morseLetter).toString();
+        } catch (MorseLetterDoesNotExist exception) {
+            throw NotAMorseWord.from(exception);
+        }
     }
 }

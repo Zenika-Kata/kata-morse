@@ -38,6 +38,6 @@ public enum MorseCharacters {
                 return character;
             }
         }
-        throw new MorseLetterDoesNotExist();
+        throw new MorseLetterDoesNotExist(morse);
     }
 }

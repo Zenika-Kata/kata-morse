@@ -3,6 +3,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ExtendWith(MockitoExtension.class)
 public class MorseDecoderTest {
@@ -30,5 +31,17 @@ public class MorseDecoderTest {
 
         // Then
         assertThat(result).isEqualTo("M OM");
+    }
+
+    @Test
+    void given_text_has_six_consecutive_dash_we_get_a_NotAMorseWord() {
+        // Given
+        var morseMOM = "------";
+        var morseDecoder = new MorseDecoder();
+
+        // When, Then
+        assertThatThrownBy(() -> morseDecoder.decode(morseMOM))
+                .isInstanceOf(NotAMorseWord.class)
+                .hasMessage("------ is not a valid letter");
     }
 }
